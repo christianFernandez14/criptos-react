@@ -1,8 +1,9 @@
+
+import Formulario from './components/Formulario'
 import styled from '@emotion/styled'
-/* 2 */
 import imagenCripto from './img/imagen-criptos.png'
 
-/* 1 */
+
 const Contenedor = styled.div`
   max-width: 900px;
   margin: 0 auto;
@@ -54,6 +55,8 @@ function App() {
         />
         <div>
           <Heading>Cotiza Criptomonedas al Instante</Heading>
+          {/* 2 */}
+          <Formulario />
         </div>
       </Contenedor>
     </>
@@ -63,20 +66,8 @@ function App() {
 export default App
 
 /* 
-    Seguimos con el Styled Components:
+    Trabajando con el formulario
 
-1.- Agregamos un contenedor, que va ha tener todo el App.
-
-2.- Importamos la imagen que tenemos en nuestro proyecto, al ser una imagen puede importarla con el nombre que desees
-
-3.- Creamos styled, a la imagen importada en este componente.
-
-4.- Luego de haberse compilado el styled del img, se lo pasamos al componente para renderizarlo, como estamos trabajando
-    con img, debe incorporarle los atributos src(fuente de la imagen) y alt (texto alternitivo), ambos son obligatorios.
-
-5.- Ahora no todas etiquetas van a llevar estilos, en este caso envolvimos el Heading, dentro de un div, ya que vamos agrupar
-    lo que este ahi como un segundo lote de componentes, gracias a grid, que tenemos en el Contenedor (Styled.div)
-
-    "Existe un extension para ver los autocompletados de los Styled components:  vscode-styled-components"
-
+1.- Para trabajar con el formulario, debemos importarlo en ese componente
+2.- Lo renderizamos
 */
