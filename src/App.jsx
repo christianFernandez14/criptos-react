@@ -1,4 +1,11 @@
+/* 1 */
+import styled from '@emotion/styled'
 
+/* 2 */
+const Heading = styled.h1`
+font-family: 'Lato', sans-serif;
+color: #fff;
+`
 
 function App() {
 
@@ -6,7 +13,8 @@ function App() {
   return (
     /* 2 */
     <>
-      <h1>Desde App</h1>
+      {/* 3 */}
+      <Heading>Desde App</Heading>
     </>
   )
 }
@@ -14,11 +22,11 @@ function App() {
 export default App
 
 /* 
-CONFIGURACIONES BASICAS - INICIO DE TU ENTORNO DE TRABAJO
+    TRABAJANDO CON LOS PRIMEROS STYLED COMPONENTS
 
-1.- Eliminamos todos los logos que existian en el proyecto
-2.- Eliminamos el App.css y todo el contenido que existian dentro de este componente
-3.- Eliminamos todo el contenido que habia dentro del index.css y le dimos una sola propiedad (back ground, para el
-    uso exclusivo de este proyecto)
-4.- Incorporamos una carpeta dentro del /SRC, "img"; que solo lleva una imagen, es para uso del proyecto,
+1.- Luego de haber instalado la dependencias, debemos importar de @emotion/styled, el styled.
+
+2.- La definición del Styled, debe estar por fuera del componente, es decir antes de la funciónn componente.
+
+3.- Remplazamos la etiqueta nativa (h1), por el styled component, recien creado (Heading)
 */
