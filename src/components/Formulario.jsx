@@ -1,6 +1,4 @@
 import useSelectMonedas from "../hooks/useSelectMonedas"
-
-/* 1 */
 import { monedas } from '../data/monedas'
 import styled from "@emotion/styled"
 
@@ -24,8 +22,8 @@ const InputSubmit = styled.input`
 `
 const Formulario = () => {
 
-  /* 2 */
-  const [SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
+  /* 1 */
+  const [monedas, SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
 
 
   return (
@@ -43,11 +41,12 @@ const Formulario = () => {
 export default Formulario
 
 /* 
-      Trabajando con el segundo parametro del custom hook "useSelectMonedas" / Las opciones
+      Trabajando con el State de React (useState / useEffect) desde useSelectMonedas
 
-  1.- Vamos a pasarle al primer hook declarado (SelectMonedas) unas opciones (array de objetos) en duro (hardcodeada), dentro de este mismo componente, y este seria el segundo parametro del Hook, esta estaran en un archivo aparte, para no ensuciar mucho el codigo y lo vamos importar en ese componente
-
+  1.- Le pasamos el estado al useSelctMonedas y lo nombramos como monedas, recuerda como es un array destructiring
+      el toma el valor por la posicion en que se encuentra en el array, es decir por el indice y si revisas el 
+      "useSelectMonedas", estas retornando esto [state, SelectMoneda] (su estado y la funcion que lo modifica)
   
-  2.- Le pasamos el array de objetos (monedas) al hook, como segunda opcion
+      Y de esa manera ya esta disponible state, para usuarlo en este componente, renderizar lo que tenga el state
 
 */
