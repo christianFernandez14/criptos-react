@@ -55,4 +55,24 @@ VAMOS CON ALGO DE TEORIA:
 
   => Su composicion es muy similar al de un componente, solo que lo que retorna es un array o un objeto.
 
-  
+VAMOS CON ALGO DE TEORIA:
+
+
+  => Que es una Api: Application Programing Interface
+
+    Son funciones o métodos que ofrece una librería para ser utilizada por otro softwere como una capa de abstracción
+
+    Una API pone a disposición recursos que están alojados en otro servidor o base de datos
+
+    Uasualmente hay que enviar una petición estructurada
+
+    Al ser React una librería que corre en el cliente, no puede consultar una base de datos, por lo tanto
+    una API es la forma de obtener datos de un servidor (ya que seria inseguro)
+
+    La Api puede ser creada en cualquier lenguaje o framework: Python, Java, Net core, Express, Nodejs, Laravel
+    PHP
+
+    Ya que lo que importa es tipo de respuesta, que JSON
+
+    A la conusltar una API, puede usar Fetch y mostrar los datos, asi como integrar librerias externas como 
+    Axios
