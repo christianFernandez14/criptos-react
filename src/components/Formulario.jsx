@@ -1,5 +1,5 @@
-/* 1 */
-import { useEffect } from "react";
+/* 6 */
+import { useState, useEffect } from "react";
 
 import useSelectMonedas from "../hooks/useSelectMonedas"
 import { monedas } from '../data/monedas'
@@ -24,24 +24,41 @@ const InputSubmit = styled.input`
   }
 `
 const Formulario = () => {
+  
+  /* 7 */
+  const [criptos, setCriptos] = useState([])
 
   const [moneda, SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
 
-  /* 2 */
   useEffect(() => {
 
-    /* 3 */
     const consultarAPI = async () => {
-      /* 5 */
       const URL = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD'
-      /* 6 */
       const respuesta = await fetch(URL)
       const resultado = await respuesta.json()
-      /* 7 */
-      console.log(resultado.Data)
+
+      /* 1 */
+      const arrayCripto = resultado.Data.map(cripto => {
+
+        /* 3 */
+        const objetoCripto = {
+          id: cripto.CoinInfo.Name,
+          nombre: cripto.CoinInfo.FullName
+        }
+
+        /* 2 */
+        // console.log(cripto.CoinInfo.Name, cripto.CoinInfo.FullName)
+
+        /* 4 */
+        return objetoCripto
+      })
+      /* 5 */
+      console.log(arrayCripto)
+
+      /* 8 */
+      setCriptos(arrayCripto)
     }
 
-    /* 4 */
     consultarAPI()
   }, [])
 
@@ -61,22 +78,22 @@ const Formulario = () => {
 export default Formulario
 
 /* 
-      Consumiendo datos desde una API
+      Creando un array con la informacion que queremos de la API
 
-  1.- Para esto debemos importar useEffect, ya que este hook es ideal para que trabaje las solicitudes a una Api
+  1.- Guardamos lo que hay CoinInfo, dentro del array "arrayCripto"
 
-  2.- Cuando declare mi useEffect, sin dependecia, ya que quiero que se ejecute una vez, cuando el componete
-      Formulario.jsx se cargue
+  2.- Luego de verificar que lo que quiero me lo esta mostrando.
   
-  3.- Creamos una funcion dentro del hook que maneje la peticion y lo hacemos con un async awit
+  3.- Creo un objeto literal con la info de Name y FullNme, que esta en la API, bajo el mismo esquema que se diseño monedas (monedas.js)
 
-  4.- Mandamos a llamar la función.
+  4.- Retornamos el objeto, ya que no estamos trabajando con return implicito
 
-  5.- Guardamos en una constante la url, donde haremos la petición 
+  5.- Hacemos un CLG del array (arrayCripto), para ir verificando que tenemos la informacion
+      estructurada en nuestro obejto con la info de la Api
 
-  6.- El uso de async await, es porque no sabemos cuanto puede tardar en traerla, y aca le damos la instruccion
-      de que espere hasta que me traiga algo
-  
-  7.- Hacemos un CLG, para ver como nos trae el resultado, luego de pasarlo a json()
+  6.- Con esta informacin (el array de criptos), debemos guardarlo en un State, lo importamos
 
+  7.- Lo inicializamos.
+
+  8.- Le pasamos a la funcion de setCriptos el array que sacamos de la API
 */
