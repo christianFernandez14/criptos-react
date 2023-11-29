@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+/* 8 */
+import Error from "./Error";
+
 import useSelectMonedas from "../hooks/useSelectMonedas"
 import { monedas } from '../data/monedas'
 import styled from "@emotion/styled"
@@ -25,9 +28,10 @@ const InputSubmit = styled.input`
 const Formulario = () => {
 
   const [criptos, setCriptos] = useState([])
+  /* 5 */
+  const [error, setError] = useState(false)
 
   const [moneda, SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
-  /* 1 */
   const [criptomonedas, SelectCriptomonedas] = useSelectMonedas('Elige tu Criptomoneda', criptos);
 
   useEffect(() => {
@@ -52,28 +56,68 @@ const Formulario = () => {
     consultarAPI()
   }, [])
 
+  /* 2 */
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    /* 3 */
+    if ([moneda, criptomonedas].includes('')) {
+
+      /* 6 */
+      setError(true)
+
+      /* 4 */
+      return;
+    }
+    /* 9 */
+    setError(false)
+
+  }
 
   return (
-    <form>
-      < SelectMonedas />
+    <>
+      {/* 7 */}
+      {error && <Error>Todo los campos son obligatorios</Error>}
 
-      {/* 2 */}
-      <SelectCriptomonedas />
+      <form
+        /* 1 */
+        onSubmit={handleSubmit}
+      >
+        < SelectMonedas />
+        <SelectCriptomonedas />
 
-      <InputSubmit
-        type="submit"
-        value='cotizar'
-      />
-    </form>
+        <InputSubmit
+          type="submit"
+          value='cotizar'
+        />
+      </form>
+    </>
   )
 }
 
 export default Formulario
 
 /* 
-    Incorporando un segundo Select con el hook useSelectMonedas()
+    Validando la informacion del Form
 
-  1.- Hacemos practicamente una copia de la declracion de moneda, pero en este caso para la criptomoneda
+  1.- Como requerimos de ambos valore de los select, debemos validar que me pasen esos valores
+      para poder "cotizar", para eso contamos con la ayuda de onSubmit() dentro del "form", como 
+      atributo y le pasamos una función 
+  
+  2.- Desarrollamos nuestro funcion y le decimos que nosotros contralaremos envio de la info (e.preventDefault())
 
-  2.- Renderizamos el Select (Recuerda que esta definido como una funcion que retorna un html)
+  3.- Trabajamos con los estados que ya nos trae el Custom hook, y consultamos bajo un condicional si hay algo
+      o no
+
+  4.- Como no voy a trabajar con el "else", le envio un return vacio para que no lea mas codigo
+
+  5.- Declaramos un estado, para que manejo de errores
+
+  6.- Le ponemos el estado del error en "true" en caso que se cumpla la condición
+
+  7.- Siguiendo con el caso que no se pase info en los select, debemos decirle al usuario algo.
+
+  8.- Importamos el componente que mostrara la info, en caso de que error = "true"
+
+  9.- Debemos colocar en false el error, en caso que si pase la validacion, o regrese de una validacion en true
 */
