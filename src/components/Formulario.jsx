@@ -1,4 +1,7 @@
 import useSelectMonedas from "../hooks/useSelectMonedas"
+
+/* 1 */
+import { monedas } from '../data/monedas'
 import styled from "@emotion/styled"
 
 const InputSubmit = styled.input`
@@ -19,19 +22,14 @@ const InputSubmit = styled.input`
   }
 `
 const Formulario = () => {
+
   /* 2 */
-  const [SelectMonedas] = useSelectMonedas('Seleccione la Moneda');
-  
-  /* 3 */
-  const [SelectOtraMonedas] = useSelectMonedas('Seleccione Otra moneda');
+  const [SelectMonedas] = useSelectMonedas('Seleccione la Moneda', monedas);
+
 
   return (
     <form>
-      {/* 1 */}
       < SelectMonedas />
-
-      {/* 4 */}
-      < SelectOtraMonedas />
 
       <InputSubmit
         type="submit"
@@ -44,12 +42,11 @@ const Formulario = () => {
 export default Formulario
 
 /* 
-      Tranajando con el custom hook "useSelectMonedas", como componente
+      Trabajando con el segundo parametro del custom hook "useSelectMonedas" / Las opciones
+
+  1.- Vamos a pasarle al primer hook declarado (SelectMonedas) unas opciones (array de objetos) en duro (hardcodeada), dentro de este mismo componente, y este seria el segundo parametro del Hook, esta estaran en un archivo aparte, para no ensuciar mucho el codigo y lo vamos importar en ese componente
+
   
-  1.- Llamamos al hook, ahora como un componente, ya que asi lo definimos en archivo
-  2.- Como todo hook debe tener un valor inicial, por lo tanto lo definimos, para evaluar los dos casos de label que vamos a trabajar
-      en este proyecto, va estar como parametros del hook
-  3.- Una de las gran ventajas de trabajar con tus propios custom hooks, es como lo definimos anteriormente, puedes reutilzarlo
-      y ya logica existe en tu custom hook
-  4.- Renderizamos esa nuevo label sin tanto esfuerzo
+  2.- Le pasamos el array de objetos (monedas) al hook, como segunda opcion
+
 */
