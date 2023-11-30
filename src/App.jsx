@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
 import Formulario from './components/Formulario'
+
+/* 1 */
+import Cotizacion from "./components/Cotizacion";
 import styled from '@emotion/styled'
 import imagenCripto from './img/imagen-criptos.png'
 
@@ -94,6 +97,8 @@ function App() {
           <Formulario
             setMonedas={setMonedas}
           />
+          {/* 2 - 3 */}
+          {cotizacion.PRICE && <Cotizacion cotizacion={cotizacion}/>}
         </div>
       </Contenedor>
     </>
@@ -105,24 +110,13 @@ export default App
 /* 
     Cotizando a la API, las monedas a cotizar
 
-1.- Ya con la  información validada que tenemos algo en el obejto de moneda, lo siguiente es consultar
-    a la API, por esos valores que tiene el objeto. Creamos una funcion que se encargue de esa consulta y luego
-    mandamos a llamar
+1.- Importando Componente Cotizacion, para ser renderizado
 
-2.- Declaramos una URL que sera dinamica, ya que voy estar consultando varias monedas con varias cripto
+2.- Lo renderizamos, pero bajo una condicion, ya que si no se la aplicas el componente se mostrara igual
+    inclusive si haberle dado click a cotizar; y lo que hicimos fue tomar una propiedad (PRICE) del objeto
+    que ya esta en el State y si existe ahi si se renderiza
 
-3.- Pero antes hacemos un destructuring a monedas, para tener sus propiedades como variables, para pasarsela
-    a la URL
+3.- Le pamos cotizacion como props, para que podamos diseñar como se mostrara aca
 
-4.- Hacemos la consulta con fetch a la API
-
-5.- En la validacion de que me traiga lo que quiero nos percatamos que las monedas estan entrelazadas como objetos
-    por lo tanto lo qu hicimos fue una consulta mas dinamica, una sintanxis de corchete([]) y ya asi puedo entrar
-    a la información que requiero del par que escoja entre las monedas
-
-6.- Ya con la información en mano de lo que queremos mostrar, podemos guardarlo en State, para eso lo declarmos
-    primero, como un objeto
-
-7.- Le pasmos la respuesta al estado de cotización, a traves de funcion modificadora.
 
 */
