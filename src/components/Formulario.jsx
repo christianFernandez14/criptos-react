@@ -31,7 +31,7 @@ const Formulario = ({ setMonedas }) => {
   const [error, setError] = useState(false)
 
   const [moneda, SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
-  const [criptomonedas, SelectCriptomonedas] = useSelectMonedas('Elige tu Criptomoneda', criptos);
+  const [criptomoneda, SelectCriptomonedas] = useSelectMonedas('Elige tu Criptomoneda', criptos);
 
   useEffect(() => {
 
@@ -58,7 +58,7 @@ const Formulario = ({ setMonedas }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if ([moneda, criptomonedas].includes('')) {
+    if ([moneda, criptomoneda].includes('')) {
       setError(true)
 
       return;
@@ -68,7 +68,7 @@ const Formulario = ({ setMonedas }) => {
     /* 2 */
     setMonedas({
       moneda,
-      criptomonedas
+      criptomoneda
     })
   }
 

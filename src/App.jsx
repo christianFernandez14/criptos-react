@@ -1,4 +1,3 @@
-/* 1 - 4 */
 import { useState, useEffect } from "react";
 
 import Formulario from './components/Formulario'
@@ -47,12 +46,37 @@ function App() {
 
   const [monedas, setMonedas] = useState({})
 
-  /* 5 */
+  /* 6 */
+  const [cotizacion, setCotizacion] = useState({})
+
   useEffect(()=> {
 
-    /* 6 */
     if(Object.keys(monedas).length > 0){
-      console.log('hay algo')
+
+      /* 1 */
+      const cotizarCripto = async () => {
+
+        /* 3 */
+        const {moneda, criptomoneda} = monedas
+
+        /* 2 */
+        const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`
+        
+        // console.log(URL)
+
+        const respuesta = await fetch(URL)
+        const resultado = await respuesta.json()
+
+        /* 5 */
+        // console.log(resultado.DISPLAY[criptomoneda][moneda])
+
+        /* 7 */
+        setCotizacion(resultado.DISPLAY[criptomoneda][moneda])
+
+      }
+
+      cotizarCripto()
+
     }
 
   }, [monedas])
@@ -68,7 +92,6 @@ function App() {
         <div>
           <Heading>Cotiza Criptomonedas al Instante</Heading>
           <Formulario
-            /* 2 */
             setMonedas={setMonedas}
           />
         </div>
@@ -80,23 +103,26 @@ function App() {
 export default App
 
 /* 
-    Detectando los valores de la moneda, para renderizarlos en App.jsx
+    Cotizando a la API, las monedas a cotizar
 
-1.- Como debemos mostrar o redenizar el resultado de la cotización de ambas moonedas, debemos
-    hacer use de un State, lo importamo al componente
+1.- Ya con la  información validada que tenemos algo en el obejto de moneda, lo siguiente es consultar
+    a la API, por esos valores que tiene el objeto. Creamos una funcion que se encargue de esa consulta y luego
+    mandamos a llamar
 
-2.- Declaramos este State como un objeto, ya que vamos usar la informacion de monedas y criptomoneda
+2.- Declaramos una URL que sera dinamica, ya que voy estar consultando varias monedas con varias cripto
 
-3.- La unica manera de saber cuales con las monedas que quiere cotizar el usuario es que el componente App.jsx
-    sepa de ellas, y para eso debemos enviar la funcion modificadora de monedas (setMonedas), por props a
-    Formulario
+3.- Pero antes hacemos un destructuring a monedas, para tener sus propiedades como variables, para pasarsela
+    a la URL
 
-4.- Ya con el obeto moneda con informacion desde el componente Formulario, vamos hacer uso de useEffect, para
-    consultar nuevamente a la API, primero lo iomportamos
+4.- Hacemos la consulta con fetch a la API
 
-5.- Declaramos el useEffect, y le pasamos como dependencia al useEffect monedas, para que chechee todo el tiempo
-    si hay cambios
+5.- En la validacion de que me traiga lo que quiero nos percatamos que las monedas estan entrelazadas como objetos
+    por lo tanto lo qu hicimos fue una consulta mas dinamica, una sintanxis de corchete([]) y ya asi puedo entrar
+    a la información que requiero del par que escoja entre las monedas
 
-6.- Como el useEffect,s e va ejecutar al cargarse el componente y la funcion de este en particular es se monte 
-    cuadno haya algo en el objeto, por eso lo condifionamos con Object.keys, ya que es un objeto
+6.- Ya con la información en mano de lo que queremos mostrar, podemos guardarlo en State, para eso lo declarmos
+    primero, como un objeto
+
+7.- Le pasmos la respuesta al estado de cotización, a traves de funcion modificadora.
+
 */
