@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 
 import Formulario from './components/Formulario'
-
-/* 1 */
 import Cotizacion from "./components/Cotizacion";
+
+/* 3 */
+import Spinner from "./components/Spinner";
+
 import styled from '@emotion/styled'
 import imagenCripto from './img/imagen-criptos.png'
 
@@ -48,33 +50,36 @@ const Heading = styled.h1`
 function App() {
 
   const [monedas, setMonedas] = useState({})
-
-  /* 6 */
   const [cotizacion, setCotizacion] = useState({})
+
+  /* 1 */
+  const [cargando, setCargando] = useState(false)
 
   useEffect(()=> {
 
     if(Object.keys(monedas).length > 0){
 
-      /* 1 */
+      /* 2 */
+      setCargando(true)
+
+      /* 4 */
+      setCotizacion({})
+
       const cotizarCripto = async () => {
 
-        /* 3 */
         const {moneda, criptomoneda} = monedas
 
-        /* 2 */
         const URL = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`
         
-        // console.log(URL)
-
         const respuesta = await fetch(URL)
         const resultado = await respuesta.json()
 
-        /* 5 */
         // console.log(resultado.DISPLAY[criptomoneda][moneda])
 
-        /* 7 */
         setCotizacion(resultado.DISPLAY[criptomoneda][moneda])
+
+        /* 4 */
+        setCargando(false)
 
       }
 
@@ -97,7 +102,9 @@ function App() {
           <Formulario
             setMonedas={setMonedas}
           />
-          {/* 2 - 3 */}
+
+          {/* 3 */}
+          {cargando && <Spinner />}
           {cotizacion.PRICE && <Cotizacion cotizacion={cotizacion}/>}
         </div>
       </Contenedor>
@@ -108,15 +115,18 @@ function App() {
 export default App
 
 /* 
-    Cotizando a la API, las monedas a cotizar
+    Trabajando con un Spinner / miestras se carga la información
 
-1.- Importando Componente Cotizacion, para ser renderizado
+  1.- Para esto debo asignarselo a un estado, lo declaramos al inicio de nuestro componente como false
 
-2.- Lo renderizamos, pero bajo una condicion, ya que si no se la aplicas el componente se mostrara igual
-    inclusive si haberle dado click a cotizar; y lo que hicimos fue tomar una propiedad (PRICE) del objeto
-    que ya esta en el State y si existe ahi si se renderiza
+  2.- El estado lo activamos o lo pasamos a "true", justo antes del llamado
 
-3.- Le pamos cotizacion como props, para que podamos diseñar como se mostrara aca
+  3.- Creamos un componete que Sniper, para que haga el efecto. lo exportamos y lo renderizamos
 
+  4.- Luego que se cargue todo, mandamos a false el estado de "cargando" con su función
+      modificadora.
+  
+  5.- Nos percatamos que no desaparece el resultado anterior cuando queremos cotizar otra moneda
+      para esto setemos el estado con un objeto vacio y solucionamos el problema.
 
 */
