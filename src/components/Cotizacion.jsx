@@ -1,6 +1,4 @@
-/* 1 */
 import styled from "@emotion/styled"
-
 
 const Contenedor = styled.div`
   margin: 15px 0;
@@ -37,7 +35,6 @@ const Precio = styled.p`
 const Cotizacion = ({ cotizacion }) => {
   // console.log(cotizacion)
 
-  /* 3 */
   const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, IMAGEURL, LASTUPDATE } = cotizacion
 
   return (
@@ -58,18 +55,3 @@ const Cotizacion = ({ cotizacion }) => {
 }
 
 export default Cotizacion
-
-
-/* 
-    Componente que se encargara de llevar estructura de lo que se mostrara como resultado al 
-    darle cotizar y este se renderizara en App.jsx
-
- 1.- Le vamos a dar algo de estilos
-
- 2.- Recibimos las props que me envia desde App
-
- 3.- Luego de verificar que me estan llegando las props, tomos algunos valores de ese objeto y le hago
-     destructuring
-
-
-*/

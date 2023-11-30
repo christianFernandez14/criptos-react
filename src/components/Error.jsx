@@ -1,7 +1,5 @@
-/* 3 */
 import styled from "@emotion/styled"
 
-/* 2 */
 const Texto = styled.div`
 background-color: #b7322c;
   color: #fff;
@@ -14,7 +12,6 @@ background-color: #b7322c;
 
 `
 
-
 const Error = ({ children }) => {
   return (
     <Texto>
@@ -24,12 +21,3 @@ const Error = ({ children }) => {
 }
 
 export default Error
-
-/* 
-  Validando la informacion del Form
-
-  1.- Componente creado, para incorporar la info en la validación del formulario.
-  2.- Le damos algo de estilos
-  3.- Debemos  importar el styled component
-
-*/

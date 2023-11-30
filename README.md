@@ -76,3 +76,9 @@ VAMOS CON ALGO DE TEORIA:
 
     A la conusltar una API, puede usar Fetch y mostrar los datos, asi como integrar librerias externas como 
     Axios
+
+
+Portal utilizados en el proyecto:
+
+1.- https://min-api.cryptocompare.com/documentation (Para la API)
+2.- https://tobiasahlin.com/spinkit/ (Para el Spinner)

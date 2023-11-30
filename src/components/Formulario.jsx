@@ -1,10 +1,10 @@
+import styled from "@emotion/styled"
 import { useState, useEffect } from "react";
 
 import Error from "./Error";
 
-import useSelectMonedas from "../hooks/useSelectMonedas"
 import { monedas } from '../data/monedas'
-import styled from "@emotion/styled"
+import useSelectMonedas from "../hooks/useSelectMonedas"
 
 const InputSubmit = styled.input`
   background-color: #9497ff;
@@ -24,7 +24,6 @@ const InputSubmit = styled.input`
     cursor: pointer;
   }
 `
-/* 1 */
 const Formulario = ({ setMonedas }) => {
 
   const [criptos, setCriptos] = useState([])
@@ -65,7 +64,6 @@ const Formulario = ({ setMonedas }) => {
     }
     setError(false)
 
-    /* 2 */
     setMonedas({
       moneda,
       criptomoneda
@@ -92,12 +90,3 @@ const Formulario = ({ setMonedas }) => {
 }
 
 export default Formulario
-
-/* 
-    Detectando los valores de la moneda, para renderizarlos en App.jsx
-
-  1.- Extraemos setMonedas por props enviadas desde App.jsx
-
-  2.- Luego de la validación, le pasamos el objeto (inspeciona en la pagina y busca el componente App, para que
-       veas su state, luego que le des al boton cotizar)
-*/
