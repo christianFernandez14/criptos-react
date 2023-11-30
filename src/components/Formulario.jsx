@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-/* 8 */
 import Error from "./Error";
 
 import useSelectMonedas from "../hooks/useSelectMonedas"
@@ -25,10 +24,10 @@ const InputSubmit = styled.input`
     cursor: pointer;
   }
 `
-const Formulario = () => {
+/* 1 */
+const Formulario = ({ setMonedas }) => {
 
   const [criptos, setCriptos] = useState([])
-  /* 5 */
   const [error, setError] = useState(false)
 
   const [moneda, SelectMonedas] = useSelectMonedas('Elige tu Moneda', monedas);
@@ -56,31 +55,28 @@ const Formulario = () => {
     consultarAPI()
   }, [])
 
-  /* 2 */
   const handleSubmit = e => {
     e.preventDefault();
 
-    /* 3 */
     if ([moneda, criptomonedas].includes('')) {
-
-      /* 6 */
       setError(true)
 
-      /* 4 */
       return;
     }
-    /* 9 */
     setError(false)
 
+    /* 2 */
+    setMonedas({
+      moneda,
+      criptomonedas
+    })
   }
 
   return (
     <>
-      {/* 7 */}
       {error && <Error>Todo los campos son obligatorios</Error>}
 
       <form
-        /* 1 */
         onSubmit={handleSubmit}
       >
         < SelectMonedas />
@@ -98,26 +94,10 @@ const Formulario = () => {
 export default Formulario
 
 /* 
-    Validando la informacion del Form
+    Detectando los valores de la moneda, para renderizarlos en App.jsx
 
-  1.- Como requerimos de ambos valore de los select, debemos validar que me pasen esos valores
-      para poder "cotizar", para eso contamos con la ayuda de onSubmit() dentro del "form", como 
-      atributo y le pasamos una función 
-  
-  2.- Desarrollamos nuestro funcion y le decimos que nosotros contralaremos envio de la info (e.preventDefault())
+  1.- Extraemos setMonedas por props enviadas desde App.jsx
 
-  3.- Trabajamos con los estados que ya nos trae el Custom hook, y consultamos bajo un condicional si hay algo
-      o no
-
-  4.- Como no voy a trabajar con el "else", le envio un return vacio para que no lea mas codigo
-
-  5.- Declaramos un estado, para que manejo de errores
-
-  6.- Le ponemos el estado del error en "true" en caso que se cumpla la condición
-
-  7.- Siguiendo con el caso que no se pase info en los select, debemos decirle al usuario algo.
-
-  8.- Importamos el componente que mostrara la info, en caso de que error = "true"
-
-  9.- Debemos colocar en false el error, en caso que si pase la validacion, o regrese de una validacion en true
+  2.- Luego de la validación, le pasamos el objeto (inspeciona en la pagina y busca el componente App, para que
+       veas su state, luego que le des al boton cotizar)
 */
